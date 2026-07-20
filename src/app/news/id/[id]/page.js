@@ -10,6 +10,7 @@ import { FaRedditAlien, FaTelegramPlane } from 'react-icons/fa';
 import { faLinkedin, faXTwitter } from '@fortawesome/free-brands-svg-icons';
 import { Loader2 } from 'lucide-react'; import Link from 'next/link';
 import Sidebar from '@/components/Sidebar';
+import ArticleChatBridge from '@/components/ArticleChatBridge';
 import parse from "html-react-parser";
 import TickerView from '@/components/TickerView';
 import { useCurrency } from "@/context/CurrencyContext";
@@ -280,6 +281,7 @@ const Page = () => {
                 </button>
               </div>
             </div>
+            <ArticleChatBridge article={article} />
             <div className="tiptap prose prose-sm sm:prose-lg dark:prose-invert max-w-none">
               {parse(article.content || "", options)}
             </div>

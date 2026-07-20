@@ -38,6 +38,86 @@ body {
   font-family: "Poppins", sans-serif;
 }
 
+.chat-md {
+  font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+.chat-md ul {
+  list-style-type: disc;
+  margin: 0.5rem 0;
+  padding-left: 1.25rem;
+}
+
+.chat-md ol {
+  list-style-type: decimal;
+  margin: 0.5rem 0;
+  padding-left: 1.25rem;
+}
+
+.chat-md li {
+  margin: 0.25rem 0;
+  padding-left: 0.15rem;
+  line-height: 1.5;
+}
+
+.chat-md li > p {
+  margin: 0;
+}
+
+.chat-md ul ul {
+  list-style-type: circle;
+  margin: 0.2rem 0;
+}
+
+.chat-stream-in {
+  animation: chat-stream-in 0.2s ease-out;
+}
+
+.chat-reply-done {
+  animation: chat-reply-done 0.35s ease-out;
+}
+
+.chat-stream-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  border-radius: 1px;
+  background: rgb(124 58 237);
+  animation: chat-cursor-blink 1s step-end infinite;
+}
+
+@keyframes chat-reply-done {
+  from {
+    opacity: 0.65;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes chat-cursor-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes chat-stream-in {
+  from {
+    opacity: 0.4;
+    transform: translateY(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @media (min-width: 400px) {
   .custom-400 {
     width: 10rem;   
@@ -91,4 +171,36 @@ body {
 .dark .tiptap blockquote {
   border-left: 3px solid #4b5563; 
   color: #d1d5db;
+}
+
+/* CryptoNews AI chatbot scrollbar */
+.chat-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(124, 58, 237, 0.35) transparent;
+}
+
+.chat-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chat-scroll::-webkit-scrollbar-track {
+  background: transparent;
+  margin: 8px 0;
+}
+
+.chat-scroll::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(37, 99, 235, 0.4), rgba(124, 58, 237, 0.4));
+  border-radius: 999px;
+}
+
+.chat-scroll::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, rgba(37, 99, 235, 0.65), rgba(124, 58, 237, 0.65));
+}
+
+.dark .chat-scroll {
+  scrollbar-color: rgba(167, 139, 250, 0.4) transparent;
+}
+
+.dark .chat-scroll::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(96, 165, 250, 0.45), rgba(167, 139, 250, 0.45));
 }

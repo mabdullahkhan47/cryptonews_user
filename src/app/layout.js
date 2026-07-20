@@ -6,6 +6,8 @@ import { CategoryProvider } from "@/context/CategoryContext";
 import { CurrencyProvider } from "@/context/CurrencyContext";
 import Ticker from '@/components/Ticker';
 import TopBarAd from '@/components/TopBarAd';
+import FloatingChatbot from '@/components/FloatingChatbot';
+import { ChatArticleProvider } from '@/context/ChatArticleContext';
 
 export const metadata = {
   title: "Crypto News",
@@ -22,6 +24,7 @@ export default function RootLayout({ children }) {
         <CategoryProvider>
           <SearchProvider>
             <CurrencyProvider>
+              <ChatArticleProvider>
               <ToastContainer />
               <Navbar />
               <Ticker />
@@ -29,6 +32,8 @@ export default function RootLayout({ children }) {
                 <TopBarAd />
                 {children}
               </main>
+              <FloatingChatbot />
+              </ChatArticleProvider>
             </CurrencyProvider>
           </SearchProvider>
         </CategoryProvider>
