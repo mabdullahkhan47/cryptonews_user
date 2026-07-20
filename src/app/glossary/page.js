@@ -1,5 +1,4 @@
 "use client"
-import Footer from '@/components/Footer'
 import Header from '@/components/Header'
 import Home from '@/components/Home'
 import React, { useEffect, useMemo, useState } from 'react'
@@ -52,7 +51,6 @@ const Page = () => {
     <div className='bg-whiite dark:bg-zinc-900 min-h-screen'>
       <Header />
       <Home filtered={filtered} />
-      <Footer />
     </div>
   )
 }

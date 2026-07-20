@@ -14,36 +14,36 @@ const Sidebar = ({ trendingArticles = [], excludeAdIds = [] }) => {
     .slice(0, 2);
 
   return (
-    <aside className="flex w-full shrink-0 flex-col lg:w-[360px] lg:self-stretch">
+    <aside className="mt-2 hidden w-full shrink-0 flex-col lg:mt-0 lg:flex lg:w-[360px] lg:self-stretch">
       <div className="flex h-full flex-col border-zinc-200 lg:border-l lg:pl-4 dark:border-zinc-800">
-        <section className="shrink-0 space-y-4 pr-1" aria-label="Trending news">
+        <section className="shrink-0 space-y-3 pr-1 sm:space-y-4" aria-label="Trending news">
           <div className="flex items-center justify-between">
-            <h2 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
+            <h2 className="text-base font-semibold tracking-tight text-gray-900 sm:text-xl dark:text-white">
               Trending News
             </h2>
-            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-amber-700 dark:text-amber-300">
+            <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-amber-700 sm:text-xs dark:text-amber-300">
               Live
             </span>
           </div>
-          <div className="space-y-3">
+          <div className="space-y-2.5 sm:space-y-3">
             {trendingArticles.slice(0, 5).map((article) => (
               <article
                 key={article._id}
-                className="group border-b border-zinc-200 pb-3 transition last:border-b-0 dark:border-zinc-800"
+                className="group border-b border-zinc-200 pb-2.5 transition last:border-b-0 sm:pb-3 dark:border-zinc-800"
               >
                 <Link href={`/news/id/${article._id}`}>
-                  <h3 className="text-sm font-medium leading-snug text-gray-900 line-clamp-2 transition group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-blue-800 group-hover:to-purple-800 group-hover:bg-clip-text dark:text-gray-100">
+                  <h3 className="line-clamp-2 text-[13px] font-medium leading-snug text-gray-900 transition group-hover:bg-gradient-to-r group-hover:from-blue-800 group-hover:to-purple-800 group-hover:bg-clip-text group-hover:text-transparent sm:text-sm dark:text-gray-100">
                     {article.title}
                   </h3>
                 </Link>
-                <div className="mt-2 flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
+                <div className="mt-1.5 flex items-center justify-between text-[11px] text-gray-500 sm:mt-2 sm:text-xs dark:text-gray-400">
                   <span>
                     {formatDistanceToNow(new Date(article.publishedAt), {
                       addSuffix: true,
                     })}
                   </span>
                   <span className="flex items-center gap-1">
-                    <FontAwesomeIcon icon={faEye} /> {article.views}
+                    <FontAwesomeIcon icon={faEye} className="text-[10px]" /> {article.views}
                   </span>
                 </div>
               </article>

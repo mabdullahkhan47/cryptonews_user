@@ -7,6 +7,7 @@ import { CurrencyProvider } from "@/context/CurrencyContext";
 import Ticker from '@/components/Ticker';
 import TopBarAd from '@/components/TopBarAd';
 import FloatingChatbot from '@/components/FloatingChatbot';
+import Footer from '@/components/Footer';
 import { ChatArticleProvider } from '@/context/ChatArticleContext';
 
 export const metadata = {
@@ -24,9 +25,7 @@ export default function RootLayout({ children }) {
 
   return (
     <html lang="en">
-      <body
-        className={`antialiased`}
-      >
+      <body className="antialiased">
         <CategoryProvider>
           <SearchProvider>
             <CurrencyProvider>
@@ -38,6 +37,7 @@ export default function RootLayout({ children }) {
                 <TopBarAd />
                 {children}
               </main>
+              <Footer />
               <FloatingChatbot />
               </ChatArticleProvider>
             </CurrencyProvider>

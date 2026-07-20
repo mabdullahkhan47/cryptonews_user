@@ -5,7 +5,7 @@ import { faTwitter, faTelegram, faLinkedin, faReddit } from "@fortawesome/free-b
 
 const Footer = () => {
   return (
-    <footer className="bg-zinc-100 dark:bg-black text-gray-700 dark:text-gray-300 mt-12">
+    <footer className="border-t border-zinc-200 bg-zinc-100 text-gray-700 dark:border-zinc-800 dark:bg-black dark:text-gray-300">
       <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-20 py-10 grid grid-cols-1 md:grid-cols-3 gap-8">
         <div>
           <h2 className="text-xl font-bold text-gray-900 dark:text-white">CryptoNews</h2>

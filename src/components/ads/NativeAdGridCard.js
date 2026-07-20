@@ -6,24 +6,28 @@ const NativeAdGridCard = ({ ad }) => (
     target="_blank"
     rel="noopener noreferrer sponsored"
     aria-label={`Sponsored: ${ad.title}`}
-    className="transition duration-300 overflow-hidden flex flex-col border-b pb-6 pt-2 border-zinc-200 dark:border-zinc-800"
+    className="group flex flex-col overflow-hidden rounded-xl border border-amber-200/70 bg-white shadow-sm transition duration-300 hover:border-amber-300 hover:shadow-md sm:rounded-2xl dark:border-zinc-700 dark:bg-zinc-950 dark:shadow-none dark:hover:border-zinc-600"
   >
-    <div className="relative w-full h-68">
-      <AdMedia ad={ad} className="object-cover" sizes="(max-width: 640px) 100vw, 33vw" />
-      <div className="absolute top-3 right-3 inline-flex items-center bg-gradient-to-r from-blue-800 to-purple-800 text-white text-xs font-medium px-2 py-1 rounded-md shadow w-fit">
+    <div className="relative h-44 w-full overflow-hidden sm:h-52 lg:h-56">
+      <AdMedia
+        ad={ad}
+        className="object-cover transition duration-300 group-hover:scale-[1.03]"
+        sizes="(max-width: 640px) 100vw, 33vw"
+      />
+      <div className="absolute left-2.5 top-2.5 inline-flex rounded-md bg-gradient-to-r from-blue-800 to-purple-800 px-2 py-0.5 text-[10px] font-medium text-white shadow sm:left-3 sm:top-3 sm:text-xs sm:py-1">
         Sponsored
       </div>
     </div>
-    <div className="mt-4 flex flex-col justify-between flex-1">
-      <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 line-clamp-2 hover:underline">
+    <div className="flex flex-1 flex-col p-3.5 sm:p-4">
+      <h3 className="line-clamp-2 text-[14px] font-semibold leading-snug text-gray-900 group-hover:underline sm:text-base dark:text-gray-100">
         {ad.title}
       </h3>
-      <p className="mt-2 text-sm text-gray-600 dark:text-gray-300 line-clamp-3">
+      <p className="mt-1.5 line-clamp-2 flex-1 text-xs leading-relaxed text-gray-600 sm:mt-2 sm:text-sm dark:text-gray-400">
         {ad.description}
       </p>
-      <div className="flex items-center justify-between mt-4 text-md mx-1 text-gray-500 dark:text-gray-400">
+      <div className="mt-3 flex items-center justify-between text-[11px] text-gray-500 sm:mt-4 sm:text-xs dark:text-gray-400">
         <span>Promoted</span>
-        <span className="text-sm font-medium text-blue-800 dark:text-purple-300">
+        <span className="font-medium text-blue-800 dark:text-purple-300">
           {ad.ctaText || "Learn more"} →
         </span>
       </div>

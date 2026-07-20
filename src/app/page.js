@@ -6,7 +6,6 @@ import { formatDistanceToNow } from "date-fns";
 import Image from 'next/image'
 import React, { useEffect, useMemo, useState } from 'react'
 import Link from 'next/link';
-import Footer from '@/components/Footer';
 import { usePlacementAds } from '@/hooks/usePlacementAds';
 import { interleaveWithAds } from '@/utils/interleaveAds';
 import NativeAdGridCard from '@/components/ads/NativeAdGridCard';
@@ -55,147 +54,161 @@ const Page = () => {
 
 
   return (
-    <div className='bg-white dark:bg-zinc-900 min-h-screen'>
-      {loading && !initialized && <div className="flex justify-center p-6 pt-6 pb-8 px-4 sm:px-8 lg:px-12">
-        <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
-      </div>}
-      {initialized && articles.length > 0 && <div className='pt-6 pb-8 px-4 sm:px-8 lg:px-12'>
-        <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">
-          🔥 Top Trending News
-        </h2>
-        <div className="w-full h-full rounded-lg shadow-2xl overflow-hidden p-6">
-          <div className="flex flex-col lg:flex-row gap-8 h-full">
-            {articles.length > 0 && (
-              <div className="lg:w-1/2 w-full border-b border-zinc-200 dark:border-zinc-800 pb-6">
-                <Link href={`/news/id/${articles[0]._id}`} className="block">
-                  <div className="relative w-full h-64 sm:h-80 lg:h-[400px]">
-                    <Image
-                      className="object-cover"
-                      src={articles[0].coverImage || "/images/img.avif"}
-                      alt={articles[0].title}
-                      fill
-                      priority
-                    />
-                    <div className="absolute bottom-3 right-3 flex items-center bg-gradient-to-r from-blue-800 to-purple-800 text-white rounded-md text-xs font-medium px-2 py-1 shadow">
-                      {articles[0].category?.name}
+    <div className='min-h-screen bg-white dark:bg-zinc-900'>
+      {loading && !initialized && (
+        <div className="flex justify-center px-4 pb-8 pt-6 sm:px-8 lg:px-12">
+          <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
+        </div>
+      )}
+      {initialized && articles.length > 0 && (
+        <div className="px-3 pb-10 pt-4 sm:px-8 sm:pt-6 lg:px-12">
+          <h2 className="mb-4 text-lg font-bold text-gray-900 sm:mb-6 sm:text-2xl dark:text-white">
+            Top Trending News
+          </h2>
+
+          <div className="w-full overflow-hidden rounded-2xl border border-zinc-200 bg-white p-3 shadow-sm sm:p-5 dark:border-zinc-800 dark:bg-zinc-950 dark:shadow-none lg:p-6">
+            <div className="flex flex-col gap-5 lg:flex-row lg:gap-8">
+              {articles.length > 0 && (
+                <div className="w-full lg:w-1/2">
+                  <Link href={`/news/id/${articles[0]._id}`} className="group block">
+                    <div className="relative h-48 w-full overflow-hidden rounded-xl sm:h-72 lg:h-[380px]">
+                      <Image
+                        className="object-cover transition duration-300 group-hover:scale-[1.02]"
+                        src={articles[0].coverImage || "/images/img.avif"}
+                        alt={articles[0].title}
+                        fill
+                        priority
+                      />
+                      {articles[0].category?.name && (
+                        <div className="absolute bottom-2 left-2 rounded-md bg-gradient-to-r from-blue-800 to-purple-800 px-2 py-0.5 text-[10px] font-medium text-white shadow sm:bottom-3 sm:left-3 sm:text-xs sm:py-1">
+                          {articles[0].category.name}
+                        </div>
+                      )}
                     </div>
-                  </div>
-                  <div className="flex flex-col gap-4 mt-4">
-                    <h2 className="text-lg lg:text-xl font-bold text-black dark:text-white line-clamp-2">
-                      {articles[0].title}
-                    </h2>
-                    <p className="text-sm lg:text-md text-zinc-700 dark:text-zinc-300 line-clamp-3">
-                      {articles[0].summary}
-                    </p>
-                    <div className="flex items-center justify-between mt-2 text-md text-zinc-600 dark:text-zinc-300">
-                      <span>
-                        {formatDistanceToNow(new Date(articles[0].publishedAt), {
-                          addSuffix: true,
-                        })}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <FontAwesomeIcon icon={faEye} /> {articles[0].views}
-                      </span>
+                    <div className="mt-3 flex flex-col gap-1.5 sm:mt-4 sm:gap-2.5">
+                      <h2 className="line-clamp-2 text-base font-bold leading-snug text-black sm:text-lg lg:text-xl dark:text-white">
+                        {articles[0].title}
+                      </h2>
+                      <p className="line-clamp-2 text-xs leading-relaxed text-zinc-600 sm:line-clamp-3 sm:text-sm dark:text-zinc-400">
+                        {articles[0].summary}
+                      </p>
+                      <div className="mt-1 flex items-center justify-between text-[11px] text-zinc-500 sm:text-sm dark:text-zinc-400">
+                        <span>
+                          {formatDistanceToNow(new Date(articles[0].publishedAt), {
+                            addSuffix: true,
+                          })}
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <FontAwesomeIcon icon={faEye} className="text-[10px]" /> {articles[0].views}
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                </Link>
-              </div>
-            )}
-            <div className="lg:w-1/2 w-full flex flex-col justify-between">
-              <ul className="space-y-4">
-                {sideListArticles.map((article) => (
-                    <li key={article._id} className="flex items-center pb-6 border-b border-zinc-200 dark:border-zinc-800">
-                      <div className="flex-1 mr-2">
-                        <Link href={`/news/id/${article._id}`}>
-                          <h3 className="text-sm sm:text-lg text-gray-900 dark:text-gray-100 font-semibold hover:underline line-clamp-2">
+                  </Link>
+                </div>
+              )}
+
+              <div className="flex w-full flex-col lg:w-1/2">
+                <ul className="divide-y divide-zinc-200 dark:divide-zinc-800">
+                  {sideListArticles.map((article) => (
+                    <li key={article._id} className="py-3 first:pt-0 last:pb-0 sm:py-4">
+                      <Link
+                        href={`/news/id/${article._id}`}
+                        className="group flex items-start gap-3 sm:gap-4"
+                      >
+                        <div className="min-w-0 flex-1">
+                          <h3 className="line-clamp-2 text-[13px] font-semibold leading-snug text-gray-900 group-hover:underline sm:text-[15px] lg:text-base dark:text-gray-100">
                             {article.title}
                           </h3>
-                        </Link>
-                        <div className='flex flex-col gap-2'>
-                          <div className="text-sm flex flex-col gap-2 text-gray-500 dark:text-gray-300">
+                          <div className="mt-1.5 flex flex-wrap items-center gap-x-2 gap-y-1 text-[10px] text-gray-500 sm:mt-2 sm:text-xs dark:text-gray-400">
                             <span>
                               {formatDistanceToNow(new Date(article.publishedAt), {
                                 addSuffix: true,
                               })}
                             </span>
-                            <span className="flex items-center gap-1">
-                              <FontAwesomeIcon icon={faEye} /> {article.views}
+                            <span className="text-gray-300 dark:text-gray-600">·</span>
+                            <span className="inline-flex items-center gap-1">
+                              <FontAwesomeIcon icon={faEye} className="text-[9px]" /> {article.views}
                             </span>
                           </div>
-                          <div className="inline-flex items-center bg-gradient-to-r from-blue-800 to-purple-800 text-white rounded-md text-xs font-medium px-2 py-1 shadow w-fit">
-                            {article.category?.name}
-                          </div>
+                          {article.category?.name && (
+                            <span className="mt-2 inline-flex rounded bg-gradient-to-r from-blue-800 to-purple-800 px-1.5 py-0.5 text-[9px] font-medium text-white sm:px-2 sm:text-[10px]">
+                              {article.category.name}
+                            </span>
+                          )}
                         </div>
-                      </div>
-                      <Link href={`/news/id/${article._id}`}>
-                        <div className="relative flex-shrink-0 w-32 h-24 sm:w-44 sm:h-32 overflow-hidden">
+                        <div className="relative h-16 w-20 shrink-0 overflow-hidden rounded-lg sm:h-24 sm:w-32 lg:h-28 lg:w-36">
                           <Image
                             src={article.coverImage || "/images/img.avif"}
                             alt={article.title}
                             fill
-                            className="object-cover"
+                            className="object-cover transition duration-300 group-hover:scale-[1.03]"
                           />
                         </div>
                       </Link>
                     </li>
-                ))}
-              </ul>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            <div className="mt-5 text-center sm:mt-6">
+              <Link
+                href={`/news/Latest News`}
+                className="inline-flex items-center gap-1.5 rounded-lg bg-gradient-to-r from-blue-800 to-purple-800 px-3.5 py-2 text-xs font-medium text-white shadow-md transition-all duration-300 hover:from-purple-800 hover:to-blue-800 sm:px-4 sm:py-2.5 sm:text-sm"
+              >
+                <span>See More Trending News</span>
+                <ArrowRight className="h-4 w-4" />
+              </Link>
             </div>
           </div>
-          <div className="mt-6 text-center">
-            <Link
-              href={`/news/Latest News`}
-              className="inline-flex items-center gap-1 px-4 py-3 text-sm font-medium text-white bg-gradient-to-r from-blue-800 to-purple-800 rounded-lg shadow-md hover:from-purple-800 hover:to-blue-800 transition-all duration-300">
-              <span>See More Trending News</span>
-              <ArrowRight />
-            </Link>
+
+          <div className="mt-8 grid grid-cols-1 gap-4 sm:mt-12 sm:grid-cols-2 sm:gap-5 lg:mt-14 lg:grid-cols-3 lg:gap-6">
+            {gridItems.map((item) =>
+              item.type === 'ad' ? (
+                <NativeAdGridCard key={item.key} ad={item.data} />
+              ) : (
+                <Link
+                  key={item.data._id}
+                  href={`/news/id/${item.data._id}`}
+                  className="group flex flex-col overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm transition duration-300 hover:border-zinc-300 hover:shadow-md sm:rounded-2xl dark:border-zinc-800 dark:bg-zinc-950 dark:shadow-none dark:hover:border-zinc-700"
+                >
+                  <div className="relative h-44 w-full overflow-hidden sm:h-52 lg:h-56">
+                    <Image
+                      src={item.data.coverImage || "/images/img.avif"}
+                      alt={item.data.title}
+                      fill
+                      className="object-cover transition duration-300 group-hover:scale-[1.03]"
+                    />
+                    {item.data.category?.name && (
+                      <div className="absolute left-2.5 top-2.5 inline-flex rounded-md bg-gradient-to-r from-blue-800 to-purple-800 px-2 py-0.5 text-[10px] font-medium text-white shadow sm:left-3 sm:top-3 sm:text-xs sm:py-1">
+                        {item.data.category.name}
+                      </div>
+                    )}
+                  </div>
+                  <div className="flex flex-1 flex-col p-3.5 sm:p-4">
+                    <h3 className="line-clamp-2 text-[14px] font-semibold leading-snug text-gray-900 group-hover:underline sm:text-base dark:text-gray-100">
+                      {item.data.title}
+                    </h3>
+                    <p className="mt-1.5 line-clamp-2 flex-1 text-xs leading-relaxed text-gray-600 sm:mt-2 sm:text-sm dark:text-gray-400">
+                      {item.data.summary}
+                    </p>
+                    <div className="mt-3 flex items-center justify-between text-[11px] text-gray-500 sm:mt-4 sm:text-xs dark:text-gray-400">
+                      <span>
+                        {formatDistanceToNow(new Date(item.data.publishedAt), {
+                          addSuffix: true,
+                        })}
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <FontAwesomeIcon icon={faEye} className="text-[10px]" /> {item.data.views}
+                      </span>
+                    </div>
+                  </div>
+                </Link>
+              )
+            )}
           </div>
         </div>
-        <div className="grid grid-cols-1 mt-20 sm:grid-cols-2 lg:grid-cols-3 gap-y-12 gap-8">
-          {gridItems.map((item) =>
-            item.type === 'ad' ? (
-              <NativeAdGridCard key={item.key} ad={item.data} />
-            ) : (
-              <Link
-                key={item.data._id}
-                href={`/news/id/${item.data._id}`}
-                className="transition duration-300 overflow-hidden flex flex-col border-b pb-6 pt-2 border-zinc-200 dark:border-zinc-800">
-                <div className="relative w-full h-68">
-                  <Image
-                    src={item.data.coverImage || "/images/img.avif"}
-                    alt={item.data.title}
-                    fill
-                    className="object-cover"
-                  />
-                  <div className="absolute top-3 right-3 inline-flex items-center bg-gradient-to-r from-blue-800 to-purple-800 text-white text-xs font-medium px-2 py-1 rounded-md shadow w-fit">
-                    {item.data.category?.name}
-                  </div>
-                </div>
-                <div className="mt-4 flex flex-col justify-between flex-1">
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 line-clamp-2 hover:underline">
-                    {item.data.title}
-                  </h3>
-                  <p className="mt-2 text-sm text-gray-600 dark:text-gray-300 line-clamp-3">
-                    {item.data.summary}
-                  </p>
-                  <div className="flex items-center justify-between mt-4 text-md mx-1 text-gray-500 dark:text-gray-400">
-                    <span>
-                      {formatDistanceToNow(new Date(item.data.publishedAt), {
-                        addSuffix: true,
-                      })}
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <FontAwesomeIcon icon={faEye} /> {item.data.views}
-                    </span>
-                  </div>
-                </div>
-              </Link>
-            )
-          )}
-        </div>
-      </div>
-      }
-      {initialized && articles.length > 0 && <Footer />}
+      )}
     </div>
   )
 }
