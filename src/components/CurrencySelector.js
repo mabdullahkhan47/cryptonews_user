@@ -45,43 +45,57 @@ export default function CurrencySelector() {
     }, []);
 
     return (
-        <div className="absolute top-16 right-0 z-10">
+        <div className="relative z-10 shrink-0 border-l border-zinc-200 bg-white dark:border-zinc-700 dark:bg-zinc-900">
             <div className="relative" ref={dropdownRef}>
-                <button onClick={() => setOpen(!open)} className="flex items-center justify-between cursor-pointer w-20 md:w-26 px-3 py-1.5 transition-all duration-200 shadow-sm bg-white dark:bg-zinc-900">
-                    <div className="flex items-center gap-2">
-                        <ReactCountryFlag countryCode={selected.country} svg
+                <button
+                    type="button"
+                    onClick={() => setOpen(!open)}
+                    className="flex cursor-pointer items-center justify-center gap-1 px-2 py-1.5 transition-all duration-200 sm:w-26 sm:justify-between sm:gap-2 sm:px-3 sm:py-2"
+                >
+                    <div className="flex items-center gap-1 sm:gap-2">
+                        <ReactCountryFlag
+                            countryCode={selected.country}
+                            svg
                             style={{
-                                width: "1.5em",
-                                height: "1.1em",
+                                width: "1.15em",
+                                height: "0.85em",
                                 borderRadius: "50%",
-                            }} />
-                        <span className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                            }}
+                        />
+                        <span className="text-[11px] font-medium leading-none text-gray-900 sm:text-sm dark:text-gray-100">
                             {selected.value}
                         </span>
                     </div>
-                    <ChevronDown size={16} className={`text-gray-600 dark:text-gray-400 transition-transform ${open ? "rotate-180" : ""}`} />
+                    <ChevronDown
+                        size={14}
+                        className={`hidden shrink-0 text-gray-600 transition-transform sm:block dark:text-gray-400 ${open ? "rotate-180" : ""}`}
+                    />
                 </button>
                 {open && (
-                    <div className="absolute p-1 right-0 mt-1 w-68 bg-white dark:bg-zinc-900 rounded-lg shadow-lg border border-gray-200 dark:border-zinc-700 animate-in fade-in slide-in-from-top-2">
+                    <div className="absolute right-0 z-20 mt-1 w-64 rounded-lg border border-gray-200 bg-white p-1 shadow-lg animate-in fade-in slide-in-from-top-2 sm:w-68 dark:border-zinc-700 dark:bg-zinc-900">
                         {currencies.map((item) => (
-                            <button key={item.value} onClick={() => {
-                                setCurrency(item.value);
-                                setOpen(false);
-                            }}
-                                className="flex items-center justify-between w-full px-3 py-2 text-sm transition rounded-md hover:bg-gradient-to-r from-blue-800 to-purple-800 text-black dark:text-white hover:text-white">
-                                <div className="flex items-center gap-3">
-                                    <ReactCountryFlag countryCode={item.country} svg style={{ width: "2em", height: "1.5em", borderRadius: "50%" }} />
-                                    <div className="flex items-center gap-4">
-                                        <span className="font-medium">
-                                            {item.value}
-                                        </span>
-                                        <span className="text-xs">
-                                            {item.label}
-                                        </span>
+                            <button
+                                key={item.value}
+                                type="button"
+                                onClick={() => {
+                                    setCurrency(item.value);
+                                    setOpen(false);
+                                }}
+                                className="flex w-full items-center justify-between rounded-md px-2.5 py-2 text-sm text-black transition hover:bg-gradient-to-r hover:from-blue-800 hover:to-purple-800 hover:text-white sm:px-3 dark:text-white"
+                            >
+                                <div className="flex items-center gap-2.5 sm:gap-3">
+                                    <ReactCountryFlag
+                                        countryCode={item.country}
+                                        svg
+                                        style={{ width: "1.75em", height: "1.25em", borderRadius: "50%" }}
+                                    />
+                                    <div className="flex items-center gap-2 sm:gap-4">
+                                        <span className="text-xs font-medium sm:text-sm">{item.value}</span>
+                                        <span className="text-[10px] sm:text-xs">{item.label}</span>
                                     </div>
                                 </div>
                                 {item.value === currency && (
-                                    <Check className="text-blue-500 dark:text-blue-400" size={16} />
+                                    <Check className="text-blue-500 dark:text-blue-400" size={14} />
                                 )}
                             </button>
                         ))}

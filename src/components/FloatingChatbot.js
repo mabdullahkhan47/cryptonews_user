@@ -29,11 +29,8 @@ import { useChatArticle } from "@/context/ChatArticleContext";
 
 const HOMEPAGE_PROMPTS = [
   "Today's Crypto News",
-  "Latest Bitcoin News",
-  "Summarize the market",
+  "What is the price of Bitcoin?",
   "Explain blockchain simply",
-  "Latest Ethereum News",
-  "Trending coins today",
 ];
 
 function TypingIndicator() {
@@ -539,23 +536,29 @@ export default function FloatingChatbot() {
                     className="chat-scroll relative z-10 flex-1 space-y-3 overflow-y-auto overscroll-contain px-3 py-4 sm:space-y-5 sm:px-4 sm:py-5"
                   >
                     {messages.length === 0 && (
-                      <div className="flex flex-col items-center px-1 pt-8 text-center sm:pt-12">
-                        <div className="mb-5 flex h-[72px] w-[72px] items-center justify-center rounded-[22px] bg-gradient-to-br from-blue-500 to-violet-600 shadow-[0_12px_40px_-8px_rgba(124,58,237,0.45)]">
-                          <Bot className="h-9 w-9 text-white" />
+                      <div className="flex flex-col items-center px-1 pt-8 text-center sm:pt-10">
+                        <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500 to-violet-600 shadow-md shadow-violet-500/30 sm:mb-5 sm:h-16 sm:w-16 sm:rounded-[20px]">
+                          <Bot className="h-7 w-7 text-white sm:h-8 sm:w-8" />
                         </div>
-                        <h3 className="text-lg font-semibold tracking-tight text-zinc-900 sm:text-xl dark:text-white">
-                          How can I help?
+                        <h3 className="text-base font-semibold tracking-tight text-zinc-900 sm:text-lg dark:text-white">
+                          Welcome to CryptoNews AI
                         </h3>
-                        <p className="mt-2 max-w-[300px] text-[12px] leading-relaxed text-zinc-600 sm:text-[13px] dark:text-zinc-400">
-                          News, markets, and explanations — powered by CryptoNews.
+                        <p
+                          className="mt-2.5 max-w-[320px] text-[12px] leading-relaxed text-zinc-600 sm:max-w-[360px] sm:text-[13px] dark:text-zinc-400"
+                          style={{ fontFamily: 'system-ui, "Segoe UI Emoji", "Apple Color Emoji", sans-serif' }}
+                        >
+                          Hey! 👋 I can help with crypto news 📰, live prices 📈, and simple explainers 💡. Ask about Bitcoin, Ethereum, market moves, or what a term means — I&apos;ll keep it clear and grounded in CryptoNews.
                         </p>
-                        <div className="mt-7 grid w-full gap-2">
+                        <p className="mb-2 mt-6 text-[10px] font-semibold uppercase tracking-[0.14em] text-zinc-500 dark:text-zinc-500">
+                          Try asking
+                        </p>
+                        <div className="grid w-full gap-1.5 sm:gap-2">
                           {suggestedPrompts.map((q) => (
                             <button
                               key={q}
                               type="button"
                               onClick={() => handleSend(q)}
-                              className="rounded-xl border border-zinc-200 bg-white px-3 py-2.5 text-left text-[12px] text-zinc-700 shadow-sm transition hover:border-violet-300 hover:bg-violet-50 hover:text-violet-800 sm:rounded-2xl sm:px-4 sm:py-3 sm:text-[13px] dark:border-white/8 dark:bg-white/[0.03] dark:shadow-none dark:text-zinc-300 dark:hover:border-violet-400/30 dark:hover:bg-violet-500/10 dark:hover:text-white"
+                              className="rounded-xl border border-zinc-200 bg-white px-3 py-2 text-left text-[12px] text-zinc-700 shadow-sm transition hover:border-violet-300 hover:bg-violet-50 hover:text-violet-800 sm:rounded-2xl sm:px-4 sm:py-2.5 sm:text-[13px] dark:border-white/8 dark:bg-white/[0.03] dark:shadow-none dark:text-zinc-300 dark:hover:border-violet-400/30 dark:hover:bg-violet-500/10 dark:hover:text-white"
                             >
                               {q}
                             </button>

@@ -125,18 +125,55 @@ body {
   }
 }
 
+.menu-btn-brand {
+  border: 2px solid transparent;
+  background:
+    linear-gradient(#ffffff, #ffffff) padding-box,
+    linear-gradient(90deg, #1e40af, #6b21a8) border-box;
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+}
+
+.dark .menu-btn-brand {
+  background:
+    linear-gradient(#09090b, #09090b) padding-box,
+    linear-gradient(90deg, #1e40af, #6b21a8) border-box;
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+}
+
+.menu-btn-brand-open {
+  border: 2px solid transparent;
+  background: linear-gradient(90deg, #1e40af, #6b21a8) border-box !important;
+  background-clip: border-box !important;
+}
+
+.dark .menu-btn-brand-open {
+  background: linear-gradient(90deg, #1e40af, #6b21a8) border-box !important;
+  background-clip: border-box !important;
+}
+
 @keyframes marquee {
-  0% {
-    transform: translateX(0%);
+  from {
+    transform: translateX(0);
   }
-  100% {
+  to {
     transform: translateX(-50%);
   }
 }
 
-.animate-marquee {
+.animate-marquee,
+.ticker-marquee {
   display: flex;
-  animation: marquee 30s linear infinite;
+  width: max-content;
+  animation: marquee 55s linear infinite;
+  will-change: transform;
+}
+
+@media (max-width: 640px) {
+  .ticker-marquee {
+    animation-duration: 40s;
+  }
 }
 
 .tiptap h1 {
