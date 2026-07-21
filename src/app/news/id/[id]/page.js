@@ -1,5 +1,4 @@
 "use client";
-import Image from 'next/image';
 import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons";
@@ -16,6 +15,8 @@ import ArticleChatBridge from '@/components/ArticleChatBridge';
 import parse from "html-react-parser";
 import TickerView from '@/components/TickerView';
 import { useCurrency } from "@/context/CurrencyContext";
+import ResponsiveArticleImage from '@/components/ResponsiveArticleImage';
+import ReadingTimeBadge from '@/components/ReadingTimeBadge';
 
 const Page = () => {
 
@@ -217,18 +218,21 @@ const Page = () => {
             </p>
             {article.coverImage && (
               <div className="flex">
-                <div className="relative w-full overflow-hidden rounded-lg shadow-lg ring-1 ring-zinc-200 sm:rounded-sm sm:shadow-xl dark:ring-zinc-700">
-                  <Image
+                <div className="relative aspect-video w-full overflow-hidden rounded-lg shadow-lg ring-1 ring-zinc-200 sm:rounded-sm sm:shadow-xl dark:ring-zinc-700">
+                  <ResponsiveArticleImage
                     src={article.coverImage}
+                    variants={article.coverImageVariants}
                     alt={article.title || "Article cover"}
-                    width={800}
-                    height={500}
                     priority
-                    className="max-h-[240px] w-full object-cover sm:max-h-[400px] md:max-h-[500px]"
+                    className="object-cover"
                   />
                   <div className="absolute right-2 top-2 rounded-md bg-gradient-to-r from-blue-800 to-purple-800 px-2 py-0.5 text-[10px] font-medium text-white shadow sm:right-4 sm:top-4 sm:px-3 sm:py-1 sm:text-sm">
                     {article.category?.name}
                   </div>
+                  <ReadingTimeBadge
+                    minutes={article.minutesRead}
+                    className="absolute bottom-2 right-2 shadow-md sm:bottom-4 sm:right-4"
+                  />
                 </div>
               </div>
             )}
@@ -319,10 +323,10 @@ const Page = () => {
                     className="group flex h-full flex-col overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm transition duration-300 hover:border-zinc-300 hover:shadow-md sm:rounded-2xl dark:border-zinc-800 dark:bg-zinc-950 dark:shadow-none dark:hover:border-zinc-700"
                   >
                     <div className="relative h-40 w-full overflow-hidden sm:h-44">
-                      <Image
+                      <ResponsiveArticleImage
                         src={related.coverImage || "/images/img.avif"}
+                        variants={related.coverImageVariants}
                         alt={related.title}
-                        fill
                         className="object-cover transition duration-300 group-hover:scale-[1.03]"
                       />
                       {related.category?.name && (
@@ -340,7 +344,7 @@ const Page = () => {
                           {related.summary}
                         </p>
                       )}
-                      <div className="mt-3 flex items-center justify-between text-[11px] text-gray-500 sm:mt-4 sm:text-xs dark:text-gray-400">
+                      <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-gray-500 sm:mt-4 sm:text-xs dark:text-gray-400">
                         {related.publishedAt ? (
                           <span>
                             {formatDistanceToNow(new Date(related.publishedAt), {
@@ -356,6 +360,7 @@ const Page = () => {
                             {related.views}
                           </span>
                         )}
+                        <ReadingTimeBadge minutes={related.minutesRead} compact />
                       </div>
                     </div>
                   </Link>

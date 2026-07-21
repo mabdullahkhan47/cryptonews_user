@@ -3,12 +3,13 @@ import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ArrowRight, Loader2 } from 'lucide-react';
 import { formatDistanceToNow } from "date-fns";
-import Image from 'next/image'
 import React, { useEffect, useMemo, useState } from 'react'
 import Link from 'next/link';
 import { usePlacementAds } from '@/hooks/usePlacementAds';
 import { interleaveWithAds } from '@/utils/interleaveAds';
 import NativeAdGridCard from '@/components/ads/NativeAdGridCard';
+import ResponsiveArticleImage from '@/components/ResponsiveArticleImage';
+import ReadingTimeBadge from '@/components/ReadingTimeBadge';
 
 const Page = () => {
 
@@ -72,11 +73,11 @@ const Page = () => {
                 <div className="w-full lg:w-1/2">
                   <Link href={`/news/id/${articles[0]._id}`} className="group block">
                     <div className="relative h-48 w-full overflow-hidden rounded-xl sm:h-72 lg:h-[380px]">
-                      <Image
+                      <ResponsiveArticleImage
                         className="object-cover transition duration-300 group-hover:scale-[1.02]"
                         src={articles[0].coverImage || "/images/img.avif"}
+                        variants={articles[0].coverImageVariants}
                         alt={articles[0].title}
-                        fill
                         priority
                       />
                       {articles[0].category?.name && (
@@ -92,12 +93,13 @@ const Page = () => {
                       <p className="line-clamp-2 text-xs leading-relaxed text-zinc-600 sm:line-clamp-3 sm:text-sm dark:text-zinc-400">
                         {articles[0].summary}
                       </p>
-                      <div className="mt-1 flex items-center justify-between text-[11px] text-zinc-500 sm:text-sm dark:text-zinc-400">
+                      <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-zinc-500 sm:text-sm dark:text-zinc-400">
                         <span>
                           {formatDistanceToNow(new Date(articles[0].publishedAt), {
                             addSuffix: true,
                           })}
                         </span>
+                        <ReadingTimeBadge minutes={articles[0].minutesRead} />
                         <span className="flex items-center gap-1">
                           <FontAwesomeIcon icon={faEye} className="text-[10px]" /> {articles[0].views}
                         </span>
@@ -129,6 +131,7 @@ const Page = () => {
                             <span className="inline-flex items-center gap-1">
                               <FontAwesomeIcon icon={faEye} className="text-[9px]" /> {article.views}
                             </span>
+                            <ReadingTimeBadge minutes={article.minutesRead} compact />
                           </div>
                           {article.category?.name && (
                             <span className="mt-2 inline-flex rounded bg-gradient-to-r from-blue-800 to-purple-800 px-1.5 py-0.5 text-[9px] font-medium text-white sm:px-2 sm:text-[10px]">
@@ -137,10 +140,10 @@ const Page = () => {
                           )}
                         </div>
                         <div className="relative h-16 w-20 shrink-0 overflow-hidden rounded-lg sm:h-24 sm:w-32 lg:h-28 lg:w-36">
-                          <Image
+                          <ResponsiveArticleImage
                             src={article.coverImage || "/images/img.avif"}
+                            variants={article.coverImageVariants}
                             alt={article.title}
-                            fill
                             className="object-cover transition duration-300 group-hover:scale-[1.03]"
                           />
                         </div>
@@ -173,10 +176,10 @@ const Page = () => {
                   className="group flex flex-col overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm transition duration-300 hover:border-zinc-300 hover:shadow-md sm:rounded-2xl dark:border-zinc-800 dark:bg-zinc-950 dark:shadow-none dark:hover:border-zinc-700"
                 >
                   <div className="relative h-44 w-full overflow-hidden sm:h-52 lg:h-56">
-                    <Image
+                    <ResponsiveArticleImage
                       src={item.data.coverImage || "/images/img.avif"}
+                      variants={item.data.coverImageVariants}
                       alt={item.data.title}
-                      fill
                       className="object-cover transition duration-300 group-hover:scale-[1.03]"
                     />
                     {item.data.category?.name && (
@@ -192,12 +195,13 @@ const Page = () => {
                     <p className="mt-1.5 line-clamp-2 flex-1 text-xs leading-relaxed text-gray-600 sm:mt-2 sm:text-sm dark:text-gray-400">
                       {item.data.summary}
                     </p>
-                    <div className="mt-3 flex items-center justify-between text-[11px] text-gray-500 sm:mt-4 sm:text-xs dark:text-gray-400">
+                    <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-gray-500 sm:mt-4 sm:text-xs dark:text-gray-400">
                       <span>
                         {formatDistanceToNow(new Date(item.data.publishedAt), {
                           addSuffix: true,
                         })}
                       </span>
+                      <ReadingTimeBadge minutes={item.data.minutesRead} />
                       <span className="flex items-center gap-1">
                         <FontAwesomeIcon icon={faEye} className="text-[10px]" /> {item.data.views}
                       </span>

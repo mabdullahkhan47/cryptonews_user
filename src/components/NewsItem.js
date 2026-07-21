@@ -1,10 +1,11 @@
 import React from "react";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Image from "next/image";
 import { formatDistanceToNow } from "date-fns";
 import Link from "next/link";
 import { useSearch } from "@/context/SearchContext";
+import ResponsiveArticleImage from "@/components/ResponsiveArticleImage";
+import ReadingTimeBadge from "@/components/ReadingTimeBadge";
 
 const isObjectIdLike = (value) =>
   typeof value === "string" && /^[a-f\d]{24}$/i.test(value.trim());
@@ -36,11 +37,10 @@ const NewsItem = ({ article }) => {
     <li className="flex w-full flex-col items-stretch gap-3 overflow-hidden rounded-2xl border border-zinc-200 bg-white p-3 text-left shadow-sm sm:gap-4 md:flex-row md:rounded-none md:border-0 md:bg-transparent md:p-0 md:shadow-none dark:border-zinc-800 dark:bg-zinc-950 md:dark:bg-transparent">
       <Link href={`/news/id/${article._id}`} className="block w-full shrink-0 md:w-56 lg:w-68">
         <div className="relative h-44 w-full overflow-hidden rounded-xl sm:h-48 md:h-40 md:rounded-none lg:h-44">
-          <Image
+          <ResponsiveArticleImage
             src={article.coverImage || "/images/img.avif"}
+            variants={article.coverImageVariants}
             alt={article.title || "Article"}
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className="object-cover"
           />
           {categoryName && (
@@ -88,9 +88,12 @@ const NewsItem = ({ article }) => {
             })}
           </span>
         )}
-        <div className="mt-2 flex items-center gap-2 text-xs text-gray-600 sm:mt-3 sm:gap-3 sm:text-sm dark:text-gray-300">
-          <FontAwesomeIcon icon={faEye} className="text-[11px]" />
-          <span>{article.views}</span>
+        <div className="mt-2 flex items-center gap-3 text-xs text-gray-600 sm:mt-3 sm:text-sm dark:text-gray-300">
+          <span className="inline-flex items-center gap-1.5">
+            <FontAwesomeIcon icon={faEye} className="text-[11px]" />
+            {article.views}
+          </span>
+          <ReadingTimeBadge minutes={article.minutesRead} />
         </div>
       </div>
     </li>

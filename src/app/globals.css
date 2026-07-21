@@ -242,6 +242,82 @@ body {
   color: #d1d5db;
 }
 
+.article-body.tiptap {
+  overflow-wrap: anywhere;
+}
+
+.article-body.tiptap ul {
+  list-style: disc;
+  margin: 0.85rem 0;
+  padding-left: 1.5rem;
+}
+
+.article-body.tiptap ol {
+  list-style: decimal;
+  margin: 0.85rem 0;
+  padding-left: 1.5rem;
+}
+
+.article-body.tiptap img,
+.article-body.tiptap video {
+  border-radius: 0.75rem;
+  max-width: 100%;
+}
+
+.article-body.tiptap video {
+  background: #09090b;
+}
+
+.article-body.tiptap table {
+  border-collapse: collapse;
+  display: block;
+  margin: 0.75rem 0;
+  max-width: 100%;
+  min-width: 100%;
+  overflow-x: auto;
+  width: 100%;
+}
+
+.article-body.tiptap th,
+.article-body.tiptap td {
+  border: 1px solid #d4d4d8;
+  font-size: 0.8125rem;
+  min-width: 100px;
+  padding: 0.35rem 0.45rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.article-body.tiptap th {
+  background: linear-gradient(90deg, rgba(30, 64, 175, 0.1), rgba(107, 33, 168, 0.1));
+  color: #27272a;
+  font-weight: 700;
+}
+
+.article-body.tiptap th p,
+.article-body.tiptap td p {
+  line-height: 1.35;
+  margin: 0;
+}
+
+.dark .article-body.tiptap th,
+.dark .article-body.tiptap td {
+  border-color: #52525b;
+}
+
+.dark .article-body.tiptap th {
+  background: linear-gradient(90deg, rgba(30, 64, 175, 0.28), rgba(107, 33, 168, 0.25));
+  color: #f4f4f5;
+}
+
+@media (max-width: 639px) {
+  .article-body.tiptap img,
+  .article-body.tiptap video {
+    height: auto;
+    width: 100% !important;
+  }
+}
+
 /* CryptoNews AI chatbot scrollbar */
 .chat-scroll {
   scrollbar-width: thin;

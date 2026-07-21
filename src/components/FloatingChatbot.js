@@ -26,6 +26,7 @@ import {
 import Link from "next/link";
 import { useChat } from "@/hooks/useChat";
 import { useChatArticle } from "@/context/ChatArticleContext";
+import ReadingTimeBadge from "@/components/ReadingTimeBadge";
 
 const HOMEPAGE_PROMPTS = [
   "Today's Crypto News",
@@ -92,9 +93,12 @@ function ArticleCard({ article }) {
         <p className="line-clamp-1 text-[11px] font-medium leading-snug text-zinc-900 group-hover:text-violet-700 sm:line-clamp-2 sm:text-[13px] dark:text-zinc-100 dark:group-hover:text-white">
           {article.title}
         </p>
-        {dateLabel && (
-          <p className="mt-0.5 text-[10px] text-violet-600/70 sm:mt-1 sm:text-[10px] sm:text-zinc-500 dark:text-violet-300/60 sm:dark:text-zinc-500">
-            {dateLabel}
+        {(dateLabel || article.minutesRead) && (
+          <p className="mt-0.5 flex items-center gap-2 text-[10px] text-violet-600/70 sm:mt-1 sm:text-zinc-500 dark:text-violet-300/60 sm:dark:text-zinc-500">
+            {dateLabel && <span>{dateLabel}</span>}
+            {article.minutesRead && (
+              <ReadingTimeBadge minutes={article.minutesRead} compact />
+            )}
           </p>
         )}
       </div>

@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { usePlacementAds } from "@/hooks/usePlacementAds";
 import AdMedia from "@/components/ads/AdMedia";
+import ReadingTimeBadge from "@/components/ReadingTimeBadge";
 
 const Sidebar = ({ trendingArticles = [], excludeAdIds = [] }) => {
   const { ads, loading: adsLoading } = usePlacementAds("sidebar");
@@ -36,7 +37,7 @@ const Sidebar = ({ trendingArticles = [], excludeAdIds = [] }) => {
                     {article.title}
                   </h3>
                 </Link>
-                <div className="mt-1.5 flex items-center justify-between text-[11px] text-gray-500 sm:mt-2 sm:text-xs dark:text-gray-400">
+                <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-gray-500 sm:mt-2 sm:text-xs dark:text-gray-400">
                   <span>
                     {formatDistanceToNow(new Date(article.publishedAt), {
                       addSuffix: true,
@@ -45,6 +46,7 @@ const Sidebar = ({ trendingArticles = [], excludeAdIds = [] }) => {
                   <span className="flex items-center gap-1">
                     <FontAwesomeIcon icon={faEye} className="text-[10px]" /> {article.views}
                   </span>
+                  <ReadingTimeBadge minutes={article.minutesRead} compact />
                 </div>
               </article>
             ))}
